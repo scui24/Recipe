@@ -1,13 +1,25 @@
 import requests
+from bs4 import BeautifulSoup
 
 # Recipe retrieval and display
 def get_recipe_details(url):
-    title = "Classic and Simple Meat Lasagna"
-    ingredients = ["1 pound lean ground beef", "2 cloves garlic, chopped", "1 teaspoon dried oregano, or to taste"]
-    steps = ["Preheat the oven to 350 degrees F (175 degrees C).",
-        "Bring a large pot of lightly salted water to a boil. Add lasagna noodles and cook for 10 minutes or until al dente; drain.",
-        "Meanwhile, place ground beef, garlic, oregano, garlic powder, salt, and black pepper in a large skillet over medium heat; cook and stir until beef is crumbly and evenly browned, about 10 minutes."
-        ]
+    response = requests.get(url)
+    html_data = response.text
+    soup = BeautifulSoup(html_data, "html.parser")
+    title = soup.title.text
+
+    ingredient_list = soup.find_all(class_="mm-recipes-structured-ingredients__list")
+    ingredients = []
+    for _ in ingredient_list:
+        for __ in _:
+            if __.text != "" and __.text.isspace() == False:
+                ingredients.append(__.text.strip()) 
+
+    step_list = soup.select('.comp.mm-recipes-steps.mntl-block .comp.mntl-sc-block.mntl-sc-block-html')
+    steps = []  
+    for i in range(len(step_list)):
+        steps.append(step_list[i].text.strip())
+    
     return title, ingredients, steps
 
 def show_ingredients(ingredients):
@@ -83,7 +95,7 @@ while True:
             show_step(step_number, steps)
 
             while flag:
-                action = input(f"Should I continue to the {step_number + 1} step?\n")
+                action = input(f"Should I continue to step {step_number + 1}?\n")
                 if "What is" in action: #4
                     tool = action.split("What is")[-1].split()
                     print(f"Here's some information about {tool}. You can check this link for more details: https://www.google.com/search?q=what+is+{tool}")
@@ -92,7 +104,7 @@ while True:
                     print(f"You can learn more about how to {technique} here: https://www.youtube.com/results?search_query=how+to+{technique}")
                 elif "How do I do that" in action: #6
                     if step_number == 1:
-                        print("This is the frist step, please specify your question.")
+                        print("This is the first step, please specify your question.")
                     else:
                         last_action = steps[step_number - 1]
                         print(f"Based on what we've discussed, here's what you should do: {last_action}.")
