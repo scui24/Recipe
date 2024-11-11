@@ -2,18 +2,10 @@ import requests
 import re
 from bs4 import BeautifulSoup
 import nltk
-
 from nltk.tokenize import sent_tokenize
-# nltk.download('punkt')
 
 # Recipe retrieval and display
-def get_recipe_details_sample(url):
-    title = "Classic and Simple Meat Lasagna"
-    ingredients = ["1 pound lean ground beef", "2 cloves garlic, chopped", "1 teaspoon dried oregano, or to taste"]
-    steps = ["Preheat the oven to 350 degrees F (175 degrees C).",
-        "Bring a large pot of lightly salted water to a boil. Add lasagna noodles and cook for 10 minutes or until al dente; drain.",
-        "Meanwhile, place ground beef, garlic, oregano, garlic powder, salt, and black pepper in a large skillet over medium heat; cook and stir until beef is crumbly and evenly browned, about 10 minutes."
-        ]
+
 def get_recipe_details(url):
     response = requests.get(url)
     html_data = response.text
