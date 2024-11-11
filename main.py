@@ -1,5 +1,9 @@
 import requests
 from bs4 import BeautifulSoup
+import nltk
+
+from nltk.tokenize import sent_tokenize
+# nltk.download('punkt')
 
 # Recipe retrieval and display
 def get_recipe_details(url):
@@ -15,10 +19,11 @@ def get_recipe_details(url):
             if __.text != "" and __.text.isspace() == False:
                 ingredients.append(__.text.strip()) 
 
-    step_list = soup.select('.comp.mm-recipes-steps.mntl-block .comp.mntl-sc-block.mntl-sc-block-html')
+    step_list = soup.select('.comp.mntl-sc-block.mntl-sc-block-startgroup.mntl-sc-block-group--LI .comp.mntl-sc-block.mntl-sc-block-html')
     steps = []  
     for i in range(len(step_list)):
-        steps.append(step_list[i].text.strip())
+        sentences = sent_tokenize(step_list[i].text.strip())
+        steps.extend(sentences)
     
     return title, ingredients, steps
 
@@ -29,7 +34,7 @@ def show_ingredients(ingredients):
 
 def show_step(step_number, steps):
     if step_number <= len(steps):
-        print(f"The {step_number} step is: {steps[step_number-1]}")
+        print(f"Step {step_number} is: {steps[step_number-1]}")
     else:
         print("Invalid step.")
 
