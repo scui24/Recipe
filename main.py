@@ -50,6 +50,23 @@ def show_ingredients(ingredients):
     for ingredient in ingredients:
         print(f"- {ingredient}")
 
+def extract_ingredient_quantity(step, ingredients):
+    quantity_pattern = re.compile(r'(\d+(\.\d+)?\s*(cups?|teaspoons?|tablespoons?|ounces?|oz|grams?|g|pounds?|lbs?|pieces?|slices?|cans?|noodles?))\s*([\w\s]+)')
+    matches = quantity_pattern.findall(step)
+    found_ingredients = []
+    for match in matches:
+        quantity_text = match[0]
+        possible_ingredient = match[-1].strip()
+        for ingredient in ingredients:
+            if possible_ingredient.lower() in ingredient.lower():
+                found_ingredients.append((quantity_text, ingredient))
+                break
+    if found_ingredients:
+        for qty, ing in found_ingredients:
+            print(f"You need {qty} of {ing}.")
+    else:
+        print("Sorry, no specific ingredient quantities found in this step.")
+
 def ordinal(n):
     n = int(n)
     if 11 <= n % 100 <= 13:
@@ -63,20 +80,6 @@ def show_step(step_number, steps):
         print(f"The {ordinal(step_number)} step is: {steps[step_number-1]}")
     else:
         print("Invalid step.")
-
-# Asking about the parameters of the current step
-def ask_step_parameters(step, ingredients):
-    if "temperature" in step.lower():
-        print("")
-    elif any(ingredient.lower() in step.lower() for ingredient in ingredients):
-        ingredient = next(ing for ing in ingredients if ing.lower() in step.lower())
-        print(f"For {ingredient}, you need to refer to the quantity in the ingredients list.")
-    elif "how long" in step.lower():
-        print("")
-    elif "done" in step.lower():
-        print("")
-    else:
-        print("No specific parameter found.")
 
 # Main
 print("Hello! I'm here to walk you through any recipe you want.")
@@ -110,8 +113,18 @@ while True:
             show_step(step_number, steps)
 
             while flag:
+                step = steps[step_number-1]
                 action = input(f"Should I continue to the {ordinal(step_number + 1)} step?\n")
-                if next_patterns.search(action): #2
+                if nth_step_pattern.search(action): #2
+                    match = nth_step_pattern.search(action)
+                    target_step = int(match.group(1) or match.group(2))
+                    if 1 <= target_step <= len(steps):
+                        step_number = target_step
+                        print(f"Glad I could help! This is the {ordinal(step_number)} step:")
+                        show_step(step_number, steps)
+                    else:
+                        print(f"Sorry, there is no step {target_step}. There are only {len(steps)} steps in this recipe.")
+                elif next_patterns.search(action):
                     step_number += 1
                     show_step(step_number, steps)
                 elif back_patterns.search(action):
@@ -132,15 +145,22 @@ while True:
                     print("No problem at all. Let's go to the last step.")
                     step_number = len(steps)
                     show_step(step_number, steps)
-                elif nth_step_pattern.search(action):
-                    match = nth_step_pattern.search(action)
-                    target_step = int(match.group(1) or match.group(2))
-                    if 1 <= target_step <= len(steps):
-                        step_number = target_step
-                        print(f"Glad I could help! This is the {ordinal(step_number)} step:")
-                        show_step(step_number, steps)
+                elif any(keyword in user_input for keyword in ["how much", "how many", "quantity", "amount"]): #3
+                    for ingredient in ingredients:
+                        if ingredient.lower() in step:
+                            extract_ingredient_quantity(step, ingredient)
+                elif any(keyword in user_input for keyword in ["temperature", "degrees", "heat"]):
+                    temperature_match = re.search(r"(\d+)\s*degrees", step)
+                    if temperature_match:
+                        print(f"The temperature is set to {temperature_match.group(1)} degrees.")
                     else:
-                        print(f"Sorry, there is no step {target_step}. There are only {len(steps)} steps in this recipe.")
+                        print(f"Sorry, there's no specific temperature mentioned in this step.")
+                elif any(keyword in user_input for keyword in ["how long", "time", "minutes", "hours", "duration"]):
+                    time_match = re.search(r"(\d+)\s*(minutes|minute|hours|hour)", step)
+                    if time_match:
+                        print(f"The duration is {time_match.group(1)} {time_match.group(2)}.")
+                    else:
+                        print(f"I'm sorry. There's no specific time duration mentioned in this step.")
                 elif "What is" in action: #4
                     tool = action.split("What is")[-1].split()
                     print(f"Here's some information about {tool}. You can check this link for more details: https://www.google.com/search?q=what+is+{tool}")
