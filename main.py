@@ -3,11 +3,29 @@ import re
 from bs4 import BeautifulSoup
 import nltk
 from nltk.tokenize import sent_tokenize
+from requests.exceptions import ConnectionError
 
 # Recipe retrieval and display
 
 def get_recipe_details(url):
-    response = requests.get(url)
+    try:
+        # Attempt to fetch the URL
+        response = requests.get(url)
+        response.raise_for_status()  # Raise HTTPError for bad responses (4xx, 5xx)
+    except requests.exceptions.MissingSchema:
+        print("Invalid URL format.")
+        return
+    except requests.exceptions.ConnectionError:
+        print("Failed to establish a connection.")
+        return
+    except requests.exceptions.HTTPError as http_err:
+        print(f"HTTP error occurred: {http_err}")
+        return
+    except Exception as err:
+        print(f"An error occurred: {err}")
+        return
+
+        
     html_data = response.text
     soup = BeautifulSoup(html_data, "html.parser")
     title = soup.title.text
