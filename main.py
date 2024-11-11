@@ -92,7 +92,7 @@ while True:
             show_step(step_number, steps)
 
             while flag:
-                action = input(f"Should I continue to the {step_number + 1} step?\n")
+                action = input(f"Should I continue to the {ordinal(step_number + 1)} step?\n")
                 if next_patterns.search(action): #2
                     step_number += 1
                     show_step(step_number, steps)
