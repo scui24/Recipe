@@ -43,7 +43,6 @@ def ordinal(n):
 def show_step(step_number, steps):
     if step_number <= len(steps):
         print(f"The {ordinal(step_number)} step is: {steps[step_number-1]}")
-        print(f"Step {step_number} is: {steps[step_number-1]}")
     else:
         print("Invalid step.")
 
