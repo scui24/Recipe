@@ -2,7 +2,7 @@ import requests
 import re
 
 # Recipe retrieval and display
-def get_recipe_details(url):
+def get_recipe_details_sample(url):
     title = "Classic and Simple Meat Lasagna"
     ingredients = ["1 pound lean ground beef", "2 cloves garlic, chopped", "1 teaspoon dried oregano, or to taste"]
     steps = ["Preheat the oven to 350 degrees F (175 degrees C).",
