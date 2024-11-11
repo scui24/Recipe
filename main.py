@@ -131,7 +131,7 @@ while True:
                     print(f"You can learn more about how to {technique} here: https://www.youtube.com/results?search_query=how+to+{technique}")
                 elif "How do I do that" in action: #6
                     if step_number == 1:
-                        print("This is the frist step, please specify your question.")
+                        print("This is the first step, please specify your question.")
                     else:
                         last_action = steps[step_number - 1]
                         print(f"Based on what we've discussed, here's what you should do: {last_action}.")
