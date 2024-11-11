@@ -1,4 +1,5 @@
 import requests
+import re
 
 # Recipe retrieval and display
 def get_recipe_details(url):
@@ -15,33 +16,19 @@ def show_ingredients(ingredients):
     for ingredient in ingredients:
         print(f"- {ingredient}")
 
+def ordinal(n):
+    n = int(n)
+    if 11 <= n % 100 <= 13:
+        suffix = "th"
+    else:
+        suffix = {1: "st", 2: "nd", 3: "rd"}.get(n % 10, "th")
+    return f"{n}{suffix}"
+
 def show_step(step_number, steps):
     if step_number <= len(steps):
-        print(f"The {step_number} step is: {steps[step_number-1]}")
+        print(f"The {ordinal(step_number)} step is: {steps[step_number-1]}")
     else:
         print("Invalid step.")
-
-# Navigation utterances
-def navigate_steps(step_number, steps, command):
-    if command == "next" or command == "continue":
-        step_number += 1
-    elif command == "back":
-        step_number = max(0, step_number - 1)
-    elif command == "repeat":
-        pass  # No change, repeats current step
-    elif "take me to" in command:
-        try:
-            target_step = int(command.split()[-2]) - 1
-            if 0 <= target_step < len(steps):
-                step_number = target_step
-        except ValueError:
-            print("Please specify a valid step number.")
-    else:
-        print("Unknown command.")
-        
-    if step_number > len(steps):
-        print("No further steps.")
-    return step_number
 
 # Asking about the parameters of the current step
 def ask_step_parameters(step, ingredients):
@@ -66,6 +53,12 @@ print(f"Alright. Let's start working with \"{title}\".")
 step_number = 1
 positive_responses = ["yes", "y", "yeah", "yep", "sure", "of course", "affirmative", "indeed", "absolutely", "okay", "ok", "yup", "certainly", "definitely"]
 negative_responses = ["no", "n", "nope", "nah", "never", "not really", "negative", "I don't think so", "absolutely not"]
+next_patterns = re.compile(r"\b(next|forward|continue|move ahead|advance|go on)\b")
+back_patterns = re.compile(r"\b(back|previous|go back|move back|rewind|return)\b")
+repeat_patterns = re.compile(r"\b(repeat|again|one more time|redo|say it again)\b")
+first_patterns = re.compile(r"\b(first|beginning|start|initial|1st)\b")
+last_patterns = re.compile(r"\b(last|final|end|conclude|finish)\b")
+nth_step_pattern = re.compile(r"\btake me to (\d+)[a-z]{0,2} step\b|\bgo to step (\d+)\b")
 
 while True:
     print("What would you like to do?")
@@ -84,7 +77,37 @@ while True:
 
             while flag:
                 action = input(f"Should I continue to the {step_number + 1} step?\n")
-                if "What is" in action: #4
+                if next_patterns.search(action): #2
+                    step_number += 1
+                    show_step(step_number, steps)
+                elif back_patterns.search(action):
+                    if step_number == 1:
+                        print("Sorry, this is the first step. You can't go to the previous step.")
+                    else:
+                        print("Happy to help! Let's go back.")
+                        step_number -= 1
+                        show_step(step_number, steps)
+                elif repeat_patterns.search(action):
+                    print("No problem! Let me repeat the step for you.")
+                    show_step(step_number, steps)
+                elif first_patterns.search(action):
+                    print("Sure. This is the first step:")
+                    step_number = 1
+                    show_step(step_number, steps)
+                elif last_patterns.search(action):
+                    print("No problem at all. Let's go to the last step.")
+                    step_number = len(steps)
+                    show_step(step_number, steps)
+                elif nth_step_pattern.search(action):
+                    match = nth_step_pattern.search(action)
+                    target_step = int(match.group(1) or match.group(2))
+                    if 1 <= target_step <= len(steps):
+                        step_number = target_step
+                        print(f"Glad I could help! This is the {ordinal(step_number)} step:")
+                        show_step(step_number, steps)
+                    else:
+                        print(f"Sorry, there is no step {target_step}. There are only {len(steps)} steps in this recipe.")
+                elif "What is" in action: #4
                     tool = action.split("What is")[-1].split()
                     print(f"Here's some information about {tool}. You can check this link for more details: https://www.google.com/search?q=what+is+{tool}")
                 elif "How do I" in action: #5
