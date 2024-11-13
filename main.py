@@ -3,10 +3,9 @@ import re
 from bs4 import BeautifulSoup
 import nltk
 from nltk.tokenize import sent_tokenize
-from requests.exceptions import ConnectionError
+from difflib import get_close_matches
 
 # Recipe retrieval and display
-
 def get_recipe_details(url):
     try:
         # Attempt to fetch the URL
@@ -50,22 +49,24 @@ def show_ingredients(ingredients):
     for ingredient in ingredients:
         print(f"- {ingredient}")
 
-def extract_ingredient_quantity(step, ingredients):
-    quantity_pattern = re.compile(r'(\d+(\.\d+)?\s*(cups?|teaspoons?|tablespoons?|ounces?|oz|grams?|g|pounds?|lbs?|pieces?|slices?|cans?|noodles?))\s*([\w\s]+)')
-    matches = quantity_pattern.findall(step)
-    found_ingredients = []
-    for match in matches:
-        quantity_text = match[0]
-        possible_ingredient = match[-1].strip()
-        for ingredient in ingredients:
-            if possible_ingredient.lower() in ingredient.lower():
-                found_ingredients.append((quantity_text, ingredient))
-                break
-    if found_ingredients:
-        for qty, ing in found_ingredients:
-            print(f"You need {qty} of {ing}.")
+def extract_ingredient_quantity(user_question):
+    question_words = ["how much", "how many", "quantity", "amount"]
+    cleaned_question = user_question.lower()
+    for phrase in question_words:
+        cleaned_question = cleaned_question.replace(phrase, "")
+    cleaned_question = cleaned_question.strip()
+    close_match = get_close_matches(cleaned_question, [ing.lower() for ing in ingredients], n=1, cutoff=0.3)
+    if close_match:
+        matched_ingredient = close_match[0]
     else:
-        print("Sorry, no specific ingredient quantities found in this step.")
+        print("No close match found for the ingredient in the question.")
+        return False
+    for ingredient in ingredients:
+        if matched_ingredient in ingredient.lower():
+            print(f"You need {ingredient}.")
+            return found
+    print(f"Could not find a close match for '{ingredient_query}' in the ingredient list.")
+    return False
 
 def ordinal(n):
     n = int(n)
@@ -145,14 +146,22 @@ while True:
                     print("No problem at all. Let's go to the last step.")
                     step_number = len(steps)
                     show_step(step_number, steps)
+<<<<<<< Updated upstream
                 elif any(keyword in action for keyword in ["how much", "how many", "quantity", "amount"]): #3
                     for ingredient in ingredients:
                         if ingredient.lower() in step:
                             extract_ingredient_quantity(step, ingredient)
+=======
+
+                elif any(keyword in action for keyword in ["how much", "how many", "quantity", "amount"]): #3
+                    found = extract_ingredient_quantity(action)
+                    if not found:
+                        print(f"Sorry, I didn't find any specific ingredient quantities in this step.")
+>>>>>>> Stashed changes
                 elif any(keyword in action for keyword in ["temperature", "degrees", "heat"]):
                     temperature_match = re.search(r"(\d+)\s*degrees", step)
                     if temperature_match:
-                        print(f"The temperature is set to {temperature_match.group(1)} degrees.")
+                        print(f"The temperature should be set to {temperature_match.group(1)} degrees.")
                     else:
                         print(f"Sorry, there's no specific temperature mentioned in this step.")
                 elif any(keyword in action for keyword in ["how long", "time", "minutes", "hours", "duration"]):
@@ -160,7 +169,14 @@ while True:
                     if time_match:
                         print(f"The duration is {time_match.group(1)} {time_match.group(2)}.")
                     else:
-                        print(f"I'm sorry. There's no specific time duration mentioned in this step.")
+                        print(f"I'm sorry. I can't find any specific time duration mentioned in this step.")
+                elif any(keyword in action for keyword in ["done", "ready", "when is it done", "finished"]):
+                    if "until" in step:
+                        completion_condition = step.split("until")[-1].strip()
+                        print(f"This step is complete when: {completion_condition}.")
+                    else:
+                        print("No specific completion condition mentioned in this step.")
+                
                 elif "What is" in action: #4
                     tool = action.split("What is")[-1].split()
                     print(f"Here's some information about {tool}. You can check this link for more details: https://www.google.com/search?q=what+is+{tool}")
@@ -173,6 +189,7 @@ while True:
                     else:
                         last_action = steps[step_number - 1]
                         print(f"Based on what we've discussed, here's what you should do: {last_action}.")
+                
                 elif any(response in action.lower() for response in positive_responses):
                     step_number += 1
                     show_step(step_number, steps)
