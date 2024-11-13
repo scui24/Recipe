@@ -146,18 +146,11 @@ while True:
                     print("No problem at all. Let's go to the last step.")
                     step_number = len(steps)
                     show_step(step_number, steps)
-<<<<<<< Updated upstream
-                elif any(keyword in action for keyword in ["how much", "how many", "quantity", "amount"]): #3
-                    for ingredient in ingredients:
-                        if ingredient.lower() in step:
-                            extract_ingredient_quantity(step, ingredient)
-=======
-
+                    
                 elif any(keyword in action for keyword in ["how much", "how many", "quantity", "amount"]): #3
                     found = extract_ingredient_quantity(action)
                     if not found:
                         print(f"Sorry, I didn't find any specific ingredient quantities in this step.")
->>>>>>> Stashed changes
                 elif any(keyword in action for keyword in ["temperature", "degrees", "heat"]):
                     temperature_match = re.search(r"(\d+)\s*degrees", step)
                     if temperature_match:
