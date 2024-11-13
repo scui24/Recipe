@@ -64,8 +64,7 @@ def extract_ingredient_quantity(user_question):
     for ingredient in ingredients:
         if matched_ingredient in ingredient.lower():
             print(f"You need {ingredient}.")
-            return found
-    print(f"Could not find a close match for '{ingredient_query}' in the ingredient list.")
+            return True
     return False
 
 def ordinal(n):
@@ -146,7 +145,7 @@ while True:
                     print("No problem at all. Let's go to the last step.")
                     step_number = len(steps)
                     show_step(step_number, steps)
-                    
+
                 elif any(keyword in action for keyword in ["how much", "how many", "quantity", "amount"]): #3
                     found = extract_ingredient_quantity(action)
                     if not found:
