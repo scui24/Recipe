@@ -145,17 +145,17 @@ while True:
                     print("No problem at all. Let's go to the last step.")
                     step_number = len(steps)
                     show_step(step_number, steps)
-                elif any(keyword in user_input for keyword in ["how much", "how many", "quantity", "amount"]): #3
+                elif any(keyword in action for keyword in ["how much", "how many", "quantity", "amount"]): #3
                     for ingredient in ingredients:
                         if ingredient.lower() in step:
                             extract_ingredient_quantity(step, ingredient)
-                elif any(keyword in user_input for keyword in ["temperature", "degrees", "heat"]):
+                elif any(keyword in action for keyword in ["temperature", "degrees", "heat"]):
                     temperature_match = re.search(r"(\d+)\s*degrees", step)
                     if temperature_match:
                         print(f"The temperature is set to {temperature_match.group(1)} degrees.")
                     else:
                         print(f"Sorry, there's no specific temperature mentioned in this step.")
-                elif any(keyword in user_input for keyword in ["how long", "time", "minutes", "hours", "duration"]):
+                elif any(keyword in action for keyword in ["how long", "time", "minutes", "hours", "duration"]):
                     time_match = re.search(r"(\d+)\s*(minutes|minute|hours|hour)", step)
                     if time_match:
                         print(f"The duration is {time_match.group(1)} {time_match.group(2)}.")
