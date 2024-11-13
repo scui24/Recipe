@@ -115,6 +115,7 @@ while True:
             while flag:
                 step = steps[step_number-1]
                 action = input(f"Should I continue to the {ordinal(step_number + 1)} step?\n")
+                action = action.lower()
                 if nth_step_pattern.search(action): #2
                     match = nth_step_pattern.search(action)
                     target_step = int(match.group(1) or match.group(2))
@@ -169,13 +170,13 @@ while True:
                     else:
                         print("No specific completion condition mentioned in this step.")
                 
-                elif "What is" in action: #4
+                elif "what is" in action: #4
                     tool = action.split("What is")[-1].split()
                     print(f"Here's some information about {tool}. You can check this link for more details: https://www.google.com/search?q=what+is+{tool}")
-                elif "How do I" in action: #5
-                    technique = action.split("How do I")[-1].split()
+                elif "how do i" in action: #5
+                    technique = action.split("how do i")[-1].split()
                     print(f"You can learn more about how to {technique} here: https://www.youtube.com/results?search_query=how+to+{technique}")
-                elif "How do I do that" in action: #6
+                elif "how do i do that" in action: #6
                     if step_number == 1:
                         print("This is the first step, please specify your question.")
                     else:
