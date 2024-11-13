@@ -89,7 +89,7 @@ print(f"Alright. Let's start working with \"{title}\".")
 
 step_number = 1
 positive_responses = ["yes", "y", "yeah", "yep", "sure", "of course", "affirmative", "indeed", "absolutely", "okay", "ok", "yup", "certainly", "definitely"]
-negative_responses = ["no", "n", "nope", "nah", "never", "not really", "negative", "I don't think so", "absolutely not"]
+negative_responses = ["no", "n", "nope", "nah", "never", "not really", "negative", "i don't think so", "absolutely not"]
 next_patterns = re.compile(r"\b(next|forward|continue|move ahead|advance|go on)\b")
 back_patterns = re.compile(r"\b(back|previous|go back|move back|rewind|return)\b")
 repeat_patterns = re.compile(r"\b(repeat|again|one more time|redo|say it again)\b")
