@@ -50,6 +50,9 @@ def show_ingredients(ingredients):
         print(f"- {ingredient}")
 
 def extract_ingredient_quantity(user_question):
+
+    pattern = r'^\s*([\d/]+(?:\s[\d/]+)*(?:-\d+)?(?:\s?(ounce|cup|tablespoon|teaspoon|pound|clove|can|slice|pinch|dash|piece|quart|gallon|lb|oz|ml|l|g))*)\s+(.*)'
+
     question_words = ["how much", "how many", "quantity", "amount"]
     cleaned_question = user_question.lower()
     for phrase in question_words:
@@ -63,8 +66,16 @@ def extract_ingredient_quantity(user_question):
         return False
     for ingredient in ingredients:
         if matched_ingredient in ingredient.lower():
-            print(f"You need {ingredient}.")
-            return True
+            match = re.match(pattern, ingredient)
+            if match:
+                quantity = match.group(1)
+                ingredient_name = match.group(3)
+                print(f"You need {quantity}.")
+                return True
+            else:
+                print("No quantity found in the matched ingredient.")
+                return False
+
     return False
 
 def ordinal(n):
