@@ -50,7 +50,6 @@ def show_ingredients(ingredients):
         print(f"- {ingredient}")
 
 def extract_ingredient_quantity(user_question):
-
     pattern = r'^\s*([\d/]+(?:\s[\d/]+)*(?:-\d+)?(?:\s?(ounce|cup|tablespoon|teaspoon|pound|clove|can|slice|pinch|dash|piece|quart|gallon|lb|oz|ml|l|g))*)\s+(.*)'
 
     question_words = ["how much", "how many", "quantity", "amount"]
@@ -158,6 +157,19 @@ while True:
                     step_number = len(steps)
                     show_step(step_number, steps)
 
+                elif "what is" in action: #4
+                    tool = action.split("What is")[-1].split()
+                    print(f"Here's some information about {tool}. You can check this link for more details: https://www.google.com/search?q=what+is+{tool}")
+                elif "how do i do that" in action: #6
+                    if step_number == 1:
+                        print("This is the first step, please specify your question.")
+                    else:
+                        last_action = steps[step_number - 1]
+                        print(f"Based on what we've discussed, here's what you should do: {last_action}.")
+                elif "how do i" in action: #5
+                    technique = action.split("how do i")[-1].split()
+                    print(f"You can learn more about how to {technique} here: https://www.youtube.com/results?search_query=how+to+{technique}")
+                
                 elif any(keyword in action for keyword in ["how much", "how many", "quantity", "amount"]): #3
                     found = extract_ingredient_quantity(action)
                     if not found:
@@ -180,19 +192,6 @@ while True:
                         print(f"This step is complete when: {completion_condition}.")
                     else:
                         print("No specific completion condition mentioned in this step.")
-                
-                elif "what is" in action: #4
-                    tool = action.split("What is")[-1].split()
-                    print(f"Here's some information about {tool}. You can check this link for more details: https://www.google.com/search?q=what+is+{tool}")
-                elif "how do i do that" in action: #6
-                    if step_number == 1:
-                        print("This is the first step, please specify your question.")
-                    else:
-                        last_action = steps[step_number - 1]
-                        print(f"Based on what we've discussed, here's what you should do: {last_action}.")
-                elif "how do i" in action: #5
-                    technique = action.split("how do i")[-1].split()
-                    print(f"You can learn more about how to {technique} here: https://www.youtube.com/results?search_query=how+to+{technique}")
                 
                 elif any(response in action.lower() for response in positive_responses):
                     step_number += 1
