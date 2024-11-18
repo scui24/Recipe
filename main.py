@@ -164,9 +164,9 @@ while True:
                         show_step(step_number, steps)
 
                     elif "what is" in action: #4
-                        tool = start.lower().split("what is")[-1].strip()  # Extract text after "what is" and strip spaces
-                        tool_query = "+".join(tool.split())  # Join with '+'
-                        tool_string = " ".join(tool.split())  # Reformat as normal text
+                        tool = start.lower().split("what is")[-1].strip()
+                        tool_query = "+".join(tool.split())
+                        tool_string = " ".join(tool.split())
                         print(f"Here's some information about {tool_string}. You can check this link for more details: https://www.google.com/search?q={tool_query}")
                     elif "how do i do that" in action: #6
                         if step_number == 1:
@@ -220,9 +220,9 @@ while True:
             print("Invalid choice. Please select a valid option.")
 
     elif "what is" in start.lower():
-        tool = start.lower().split("what is")[-1].strip()  # Extract text after "what is" and strip spaces
-        tool_query = "+".join(tool.split())  # Join with '+'
-        tool_string = " ".join(tool.split())  # Reformat as normal text
+        tool = start.lower().split("what is")[-1].strip()
+        tool_query = "+".join(tool.split())
+        tool_string = " ".join(tool.split())
         print(f"Here's some information about {tool_string}. You can check this link for more details: https://www.google.com/search?q={tool_query}")
     elif "how do i" in start.lower():
         technique = start.lower().split("how do i")[-1].split()
