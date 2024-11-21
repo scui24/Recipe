@@ -1,5 +1,42 @@
-Packages Needed
-- requests
-- bs4
-- nltk
-- re
+# CS337 Project 2 -- Recipe Parsing & User-Bot Conversational Interaction
+# Group 3- Recipe Parsing & Conversational Interaction Project
+
+This project uses a variety of web scraping, natural language processing (NLP), and text-processing libraries/packages for designing and building a system that (i) parses online recipes into a useful data representation and (ii) features a (basic) conversational interface for user interaction.
+
+The following libraries/packages are included in the project:
+
+## Libraries/Packages Overview
+1. **requests**: The Requests is a Python library that allows you to send HTTP/1.1 requests extremely easily.
+   
+2. **re**: re is a Python built-in package, which can be used to work with Regular Expressions.
+   
+3. **bs4**: Beautiful Soup is a library that makes it easy to scrape information from web pages. It sits atop an HTML or XML parser, providing Pythonic idioms for iterating, searching, and modifying the parse tree.
+      
+4. **NLTK**: The Natural Language Toolkit (NLTK) is a comprehensive library for working with human language data (text) in Python, including text classification, tokenization, stemming, tagging, parsing, and more.
+    
+5. **difflib**: The difflib is the Python standard library that provides classes and functions for comparing sequences. It can be used for example, for comparing files, and can produce information about file differences in various formats, including HTML and context and unified diffs.
+
+
+## Setup Instructions
+
+Please download and install above required libraries/packages in Python.
+
+## Group 3 Github Repository
+ You can access our group's project-2 Github repository through following address: 
+ https://github.com/scui24/Recipe.git
+ 
+
+## Steps to run the the python file in the submission folder
+Step 1:Run the code under **Recipe retrieval and display** part to make preparation that you can retrive any recipe you want from the recipe website: allrecipes.com
+
+Step 2: run the code under **Main** part to interact with chatbot to parse recipe ingredients, Tools, methods, or Steps.
+
+
+
+
+
+
+
+
+
+
