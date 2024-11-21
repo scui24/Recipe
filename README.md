@@ -31,7 +31,7 @@ Step 1:Run the code under **Recipe retrieval and display** part to make preparat
 
 Step 2: run the code under **Main** part to interact with chatbot to parse recipe ingredients, tools, methods, or steps.
 
-Test questions for six question answering goals:
+*Test questions for six question answering goals:*
 
 1.Recipe retrieval and display: 
 
