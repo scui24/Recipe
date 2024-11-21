@@ -27,10 +27,23 @@ Please download and install above required libraries/packages in Python.
  
 
 ## Steps to run the the python file in the submission folder
-Step 1:Run the code under **Recipe retrieval and display** part to make preparation that you can retrive any recipe you want from the recipe website: allrecipes.com
+Step 1:Run the code under **Recipe retrieval and display** part to make preparation that you can retrive any recipe you want from the recipe website: https://www.allrecipes.com
 
-Step 2: run the code under **Main** part to interact with chatbot to parse recipe ingredients, Tools, methods, or Steps.
+Step 2: run the code under **Main** part to interact with chatbot to parse recipe ingredients, tools, methods, or steps.
 
+Test questions for six question answering goals:
+
+1.Recipe retrieval and display: 
+
+2.Navigation utterances:
+
+3.Asking about the parameters of the current step:
+
+4.Simple "what is" questions:
+
+5.Specific "how to" questions:
+
+6.Vague "how to" questions: 
 
 
 
