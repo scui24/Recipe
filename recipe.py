@@ -117,7 +117,7 @@ def main():
         print("[1] Fetch a recipe from Allrecipes")
         print("[2] Ask a cooking question")
         print("[3] Quit")
-        print("Or type commands like 'show me a recipe', 'show me ingredients', 'next step', or 'how do I preheat the oven'.")
+        print("Or type commands like 'show me a recipe'.")
 
         user_input = input("What would you like to do? ").strip().lower()
 
@@ -206,11 +206,9 @@ def recipe_menu(title, ingredients, steps):
         else:
             print("Invalid choice. Please try again.")
 
-
 def navigate_steps(steps, ingredients):
     step_number = 1
 
-   
     def ordinal_to_number(word):
         ordinal_map = {
             "first": 1, "second": 2, "third": 3, "fourth": 4, "fifth": 5,
@@ -230,27 +228,42 @@ def navigate_steps(steps, ingredients):
         print("[R] Repeat step")
         print("[G] Go to a specific step")
         print("[M] Return to Recipe Menu")
-        print("Or type commands like 'next step', 'repeat step', 'how much cheese', or 'show me the 4th step'.")
+        print("Or type commands like 'next step', 'repeat step', 'how much cheese', 'what's the temperature', or 'how long to cook'.")
 
         user_input = input("Your choice: ").strip().lower()
 
-     
         if handle_cooking_question(user_input):
             continue
 
         if any(keyword in user_input for keyword in ["how much", "how many", "quantity", "amount"]):
             if extract_ingredient_quantity(user_input, ingredients):
-                continue 
+                continue
             else:
                 print("I couldn't find that ingredient. Please try again.")
                 continue
 
-       
         if "ingredients" in user_input:
             show_ingredients(ingredients)
             print("\nReturning to Step Navigation...")
             continue
 
+        if "temperature" in user_input or "degrees" in user_input:
+            temperature_match = re.search(r"(\d+)\s*degrees", steps[step_number - 1])
+            if temperature_match:
+                print(f"The temperature should be set to {temperature_match.group(1)} degrees.")
+            else:
+                print("Sorry, there's no specific temperature mentioned in this step.")
+            continue
+
+        if any(keyword in user_input for keyword in ["how long", "time", "minutes", "hours", "duration"]):
+            time_match = re.search(r"(\d+)\s*(minutes|minute|hours|hour)", steps[step_number - 1])
+            if time_match:
+                duration = time_match.group(1)
+                unit = time_match.group(2)
+                print(f"The cooking time is {duration} {unit}.")
+            else:
+                print("I'm sorry, I couldn't find a specific cooking time in this step.")
+            continue
 
         if "step" in user_input:
             match = re.search(r"(first|second|third|fourth|fifth|sixth|seventh|eighth|ninth|tenth|\d+)", user_input)
@@ -264,34 +277,27 @@ def navigate_steps(steps, ingredients):
                     print(f"Invalid step number. There are only {len(steps)} steps.")
                     continue
 
-       
         if user_input in ["n", "next", "next step"]:
             step_number += 1
-
         elif user_input in ["b", "back", "previous", "previous step"]:
             if step_number > 1:
                 step_number -= 1
             else:
                 print("You are already at the first step.")
-
         elif user_input in ["r", "repeat", "repeat step"]:
             continue
-
         elif user_input in ["g", "goto", "go to"]:
             target = input("Enter the step number you want to go to: ").strip()
             if target.isdigit() and 1 <= int(target) <= len(steps):
                 step_number = int(target)
             else:
                 print("Invalid step number.")
-
         elif user_input in ["m", "menu", "return to menu"]:
             print("Returning to Recipe Menu...")
             break
-
         else:
             print("Invalid choice. Please select a valid option.")
-
-
+            
 def handle_cooking_question(user_input):
   
     if "how do i" in user_input:
@@ -314,3 +320,4 @@ def handle_cooking_question(user_input):
 
 if __name__ == "__main__":
     main()
+
