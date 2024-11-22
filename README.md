@@ -36,17 +36,17 @@ Step 2: Interact with chatbot to parse recipe ingredients, tools, methods, or st
 
 1.**Recipe retrieval and display:**
   <p>you can select option [1] from Main Menu:[1] Fetch a recipe from Allrecipes;</p>
-  <p>OR type "show me a recipe".</p>
-  And then input any recipe url link from allrecipes.com: https://www.allrecipes.com
+  <p>OR type "show me a recipe".
+  And then input any recipe url link from allrecipes.com: https://www.allrecipes.com</p>
 
 2.**Navigation utterances:**
   <p>type "next", "next step", "repeat step", "repeat", "previous step", "previous", "show me the n-th step", "take me to the n-th step", "go to n-th step"; "n-th step", "back";</p>
-  <p>OR select options from Step Navigation Options:</p>
+  <p>OR select options from Step Navigation Options:
      [N] Next step
      [B] Previous step
      [R] Repeat step
      [G] Go to a specific step
-     [M] Return to Recipe Menu
+     [M] Return to Recipe Menu</p>
 
 3.**Asking about the parameters of the current step:**
   <p>type "how many/much [ingredient name], "how many/much [ingredient name] do i need?", "the amount of [ingredient name]", "the quantity of [ingredient name]".</p>
