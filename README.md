@@ -35,32 +35,32 @@ Step 2: Interact with chatbot to parse recipe ingredients, tools, methods, or st
 **Test questions for six question answering goals:**
 
 1.**Recipe retrieval and display:**
-  <p>you can select option [1] from Main Menu:[1] Fetch a recipe from Allrecipes;</p>
+  <p>You can select option [1] from Main Menu:[1] Fetch a recipe from Allrecipes;</p>
   <p>OR type "show me a recipe".
   And then input any recipe url link from allrecipes.com: https://www.allrecipes.com</p>
 
 2.**Navigation utterances:**
-  <p>type "next", "next step", "repeat step", "repeat", "previous step", "previous", "show me the n-th step", "take me to the n-th step", "go to n-th step"; "n-th step", "back";</p>
+  <p>Type "next", "next step", "repeat step", "repeat", "previous step", "previous", "show me the n-th step", "take me to the n-th step", "go to n-th step"; "n-th step", "back";</p>
   <p>OR select options from Step Navigation Options:
      [N] Next step
      [B] Previous step
      [R] Repeat step
      [G] Go to a specific step
-     [M] Return to Recipe Menu</p>
+     [M] Return to Recipe Menu.</p>
 
 3.**Asking about the parameters of the current step:**
-  <p>type "how many/much [ingredient name], "how many/much [ingredient name] do i need?", "the amount of [ingredient name]", "the quantity of [ingredient name]".</p>
-  <p>type "how long should i need", "how long of the cook", "the time/minutes/hours needed", "the duration of cook".</p>
+  <p>Type "how many/much [ingredient name], "how many/much [ingredient name] do i need?", "the amount of [ingredient name]", "the quantity of [ingredient name]".</p>
+  <p>Type "how long should i need", "how long of the cook", "the time/minutes/hours needed", "the duration of cook".</p>
   <p>"what the temperature", "what the temperature of [cook tool/technique]", "what the degrees", "what the degrees of [cook tool/technique]", "the degrees of [cook tool/technique]". </p>
   
 4.**Simple "what is" questions:**
-  <p>type "what is a [tool being mentioned]?"</p>
+  <p>Type "what is a [tool being mentioned]?"</p>
 
 5.**Specific "how to" questions:**
-  <p>type "how to [specific technique]?"</p>
+  <p>Type "how to [specific technique]?"</p>
     
 6.**Vague "how to" questions:**
-  <p>type " how do i [specific technique/step]?"</p>
+  <p>Type " how do i [specific technique/step]?"</p>
 
 
 
