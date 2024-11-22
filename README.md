@@ -39,7 +39,7 @@ Step 2: Interact with chatbot to parse recipe ingredients, tools, methods, or st
   <p>OR type "show me a recipe".</p>
   And then input any recipe url link from allrecipes.com: https://www.allrecipes.com
 
-2.**Navigation utterances:*8
+2.**Navigation utterances:**
   <p>type "next", "next step", "repeat step", "repeat", "previous step", "previous", "show me the n-th step", "take me to the n-th step", "go to n-th step"; "n-th step", "back";</p>
   <p>OR select options from Step Navigation Options:</p>
      [N] Next step
