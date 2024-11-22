@@ -34,21 +34,21 @@ Step 2: Interact with chatbot to parse recipe ingredients, tools, methods, or st
 
 **Test questions for six question answering goals:**
 
-1.Recipe retrieval and display:\
-  you can select option [1] from Main Menu:[1] Fetch a recipe from Allrecipes; 
-  -OR type "show me a recipe".\ 
+1.Recipe retrieval and display:
+  <p>you can select option [1] from Main Menu:[1] Fetch a recipe from Allrecipes;</p>
+  <p>OR type "show me a recipe".</p>
   And then input any recipe url link from allrecipes.com: https://www.allrecipes.com
 
-2.Navigation utterances:\ 
+2.Navigation utterances:
   -type "next", "next step", "repeat step", "repeat", "previous step", "previous", "show me the n-th step", "take me to the n-th step", "go to n-th step"; "n-th step", "back";\
-  -OR select options from Step Navigation Options:\
+  -OR select options from Step Navigation Options:
      [N] Next step
      [B] Previous step
      [R] Repeat step
      [G] Go to a specific step
      [M] Return to Recipe Menu
 
-3.Asking about the parameters of the current step:\ 
+3.Asking about the parameters of the current step: 
   type "how many/much [ingredient name], "how many/much [ingredient name] do i need?", "the amount of [ingredient name]", "the quantity of [ingredient name]".
 
 4.Simple "what is" questions:\ 
