@@ -34,30 +34,30 @@ Step 2: Interact with chatbot to parse recipe ingredients, tools, methods, or st
 
 **Test questions for six question answering goals:**
 
-1.Recipe retrieval and display: 
-  -you can select option [1] from Main Menu:[1] Fetch a recipe from Allrecipes; 
-  -OR type "show me a recipe". 
+1.Recipe retrieval and display:\
+  you can select option [1] from Main Menu:[1] Fetch a recipe from Allrecipes; 
+  -OR type "show me a recipe".\ 
   And then input any recipe url link from allrecipes.com: https://www.allrecipes.com
 
-2.Navigation utterances: 
-  -type "next", "next step", "repeat step", "repeat", "previous step", "previous", "show me the n-th step", "take me to the n-th step", "go to n-th step"; "n-th step", "back";
-  -OR select options from Step Navigation Options:
+2.Navigation utterances:\ 
+  -type "next", "next step", "repeat step", "repeat", "previous step", "previous", "show me the n-th step", "take me to the n-th step", "go to n-th step"; "n-th step", "back";\
+  -OR select options from Step Navigation Options:\
      [N] Next step
      [B] Previous step
      [R] Repeat step
      [G] Go to a specific step
      [M] Return to Recipe Menu
 
-3.Asking about the parameters of the current step: 
-  -type "how many/much [ingredient name], "how many/much [ingredient name] do i need?", "the amount of [ingredient name]", "the quantity of [ingredient name]".
+3.Asking about the parameters of the current step:\ 
+  type "how many/much [ingredient name], "how many/much [ingredient name] do i need?", "the amount of [ingredient name]", "the quantity of [ingredient name]".
 
-4.Simple "what is" questions: 
+4.Simple "what is" questions:\ 
   -type "what is a [tool being mentioned]?"
 
-5.Specific "how to" questions: 
+5.Specific "how to" questions:\ 
   -type "how to [specific technique]?"
     
-6.Vague "how to" questions: 
+6.Vague "how to" questions:\
   -type " how do i [specific technique/step]?"
 
 
