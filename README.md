@@ -50,7 +50,9 @@ Step 2: Interact with chatbot to parse recipe ingredients, tools, methods, or st
 
 3.**Asking about the parameters of the current step:**
   <p>type "how many/much [ingredient name], "how many/much [ingredient name] do i need?", "the amount of [ingredient name]", "the quantity of [ingredient name]".</p>
-
+  <p>type "how long should i need", "how long of the cook", "the time/minutes/hours needed", "the duration of cook".</p>
+  <p>"what the temperature", "what the temperature of [cook tool/technique]", "what the degrees", "what the degrees of [cook tool/technique]", "the degrees of [cook tool/technique]". </p>
+  
 4.**Simple "what is" questions:**
   <p>type "what is a [tool being mentioned]?"</p>
 
